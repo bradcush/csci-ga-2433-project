@@ -28,6 +28,11 @@ Open a psql shell to the database
 heroku pg:psql
 ```
 
+## Schemas
+
+- `schema/circuit-blocks.png`
+- `schema/circuit-blocks.sql`
+
 ## Insights
 
 A model has been trained for predicting whether someone purchasing a warranty
