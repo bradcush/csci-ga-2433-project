@@ -1,3 +1,4 @@
+-- object: "circuit-blocks" | type: DATABASE --
 CREATE DATABASE "circuit-blocks";
 
 
