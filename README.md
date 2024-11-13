@@ -28,6 +28,29 @@ Open a psql shell to the database
 heroku pg:psql
 ```
 
+PostgreSQL has also been setup locally to make working with the database
+easier. We can use the command-line tools to manage Heroku Postgres.
+
+``` sh
+export DATABASE_URL=postgres://
+```
+
+Pushing local changes to remote:
+
+``` sh
+heroku pg:push bradcush DATABASE_URL --app glacial-ocean-75196
+```
+
+We can login as the `postgres` user locally, create the database manually, and
+run any other privileged commands we need to. Other commands like the creation
+of tables in some database won't require these privileges. A common workflow I
+have is to setup the database using pgModeler after making changes there and
+change the database name to `bradcush` used locally by Heroku.
+
+``` sh
+sudo -u postgres psql
+```
+
 ## Schemas
 
 - `schema/circuit-blocks.png`
