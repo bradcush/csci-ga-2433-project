@@ -33,6 +33,7 @@ def create():
                 url text)
             """
         )
+        conn.commit()
         return "Created sample"
 
 
