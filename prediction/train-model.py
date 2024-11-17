@@ -6,7 +6,7 @@ import pickle
 # Code for training this model was taken from Logistic Regression Explained
 # https://medium.com/@zsalifu22/logistic-regression-explained-a-complete-guide-with-python-examples-e7dd27cb8820
 # https://stackoverflow.com/questions/56107259/how-to-save-a-trained-model-by-scikit-learn
-data = pd.read_csv("./warranties-actual.csv")
+data = pd.read_csv("./external-risk-actual.csv")
 data.head()
 
 # Split into input/output

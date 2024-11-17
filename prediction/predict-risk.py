@@ -8,7 +8,7 @@ import pickle
 with open("model.pkl", "rb") as f:
     model = pickle.load(f)
 
-data = pd.read_csv("./warranties-actual.csv")
+data = pd.read_csv("./external-risk-actual.csv")
 data.head()
 
 # Split into input/output

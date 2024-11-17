@@ -65,7 +65,7 @@ charging $10 for those that are deemed risky.
 
 ### Training
 
-The file used for training is `prediction/warranties-actual.csv` which is
+The file used for training is `prediction/external-risk-actual.csv` which is
 programmatically generated data representative of the real world.
 
 ``` sh
@@ -75,11 +75,11 @@ python train-model.py
 
 ### Predicting
 
-Prediction can be run on either `prediction/warranties-actual.csv` or
-`prediction/warranties-random.csv`. Note that random data is included only for
-a sanity check where prediction should be around 50% accurate. We've hardcoded
-the training data as `warranties-actual.csv` for now which is predicted with
-around 90% accuracy.
+Prediction can be run on either `prediction/external-risk-actual.csv` or
+`prediction/external-risk-random.csv`. Note that random data is included only
+for a sanity check where prediction should be around 50% accurate. We've
+hardcoded the training data as `external-risk-actual.csv` for now which is
+predicted with around 90% accuracy.
 
 ``` sh
 cd prediction
