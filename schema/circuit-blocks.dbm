@@ -4,7 +4,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
 <dbmodel pgmodeler-ver="1.2.0-alpha1" use-changelog="false" max-obj-count="22"
-	 last-position="-494,-160" last-zoom="1" scene-rect="-580,-160,2521.49,1924.52"
+	 last-position="146,-160" last-zoom="1" scene-rect="-580,-160,2521.49,1924.52"
 	 default-schema="public" default-owner="postgres"
 	 layers="Default layer"
 	 active-layers="0"
@@ -101,7 +101,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<table name="warranty" layers="0" collapse-mode="2" max-obj-count="7" z-value="0">
+<table name="warranty" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<position x="1560" y="100"/>
@@ -111,19 +111,23 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="expiration_date">
 		<type name="date" length="0"/>
 	</column>
-	<column name="is_under">
-		<type name="boolean" length="0"/>
-	</column>
 	<column name="price">
 		<type name="integer" length="0"/>
 	</column>
-	<column name="discount_pct">
+	<column name="percentage">
 		<type name="integer" length="0"/>
 	</column>
 	<constraint name="warranty_pk" type="pk-constr" table="public.warranty">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
-</table>
+
+	<customidxs object-type="column">
+		<object name="id_order" index="4"/>
+	</customidxs>
+	<customidxs object-type="constraint">
+		<object name="order_fk" index="1"/>
+		<object name="warranty_uq" index="2"/>
+	</customidxs></table>
 
 <table name="credit_card" layers="0" collapse-mode="2" max-obj-count="9" z-value="0">
 	<schema name="public"/>
@@ -215,13 +219,10 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<special-pk-cols indexes="0"/>
 </relationship>
 
-<table name="personal_information" layers="0" collapse-mode="2" max-obj-count="9" z-value="0">
+<table name="personal_information" layers="0" collapse-mode="2" max-obj-count="8" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<position x="-560" y="140"/>
-	<column name="id" not-null="true">
-		<type name="serial" length="0"/>
-	</column>
 	<column name="age">
 		<type name="integer" length="0"/>
 	</column>
@@ -240,10 +241,14 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="has_risk">
 		<type name="integer" length="0"/>
 	</column>
-	<constraint name="personal_information_pk" type="pk-constr" table="public.personal_information">
-		<columns names="id" ref-type="src-columns"/>
-	</constraint>
-</table>
+
+	<customidxs object-type="column">
+		<object name="id_customer" index="6"/>
+	</customidxs>
+	<customidxs object-type="constraint">
+		<object name="customer_fk" index="0"/>
+		<object name="personal_information_uq" index="1"/>
+	</customidxs></table>
 
 <table name="mailing_list" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
 	<schema name="public"/>
@@ -618,6 +623,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<label ref-type="name-label">
 		<position x="-6.62809" y="-24.1121"/>
 	</label>
+	<special-pk-cols indexes="0"/>
 </relationship>
 
 <relationship name="member_is_a_customer" type="rel11" layers="0"
