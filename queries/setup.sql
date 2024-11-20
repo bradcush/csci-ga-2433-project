@@ -15,3 +15,20 @@ insert into inventory (location, quantity, id_product) values ('berkeley', 500, 
 
 insert into inventory_backorder (location_inventory, id_product_inventory, id_backorder) values ('berkeley', 2, 1);
 insert into inventory_backorder (location_inventory, id_product_inventory, id_backorder) values ('berkeley', 3, 2);
+
+-- Setup required for adding personal information and warranty
+insert into prospect (name, email) values ('bradley', 'bradley@whatit.be');
+insert into prospect (name, email) values ('laura', 'laura@whatit.be');
+insert into prospect (name, email) values ('oodie', 'oodie@whatit.be');
+
+insert into customer (id, name, email, phone, email_prospect) values (1, 'bradley', 'bradley@whatit.be', 1234567890, 'bradley@whatit.be');
+insert into customer (id, name, email, phone, email_prospect) values (2, 'laura', 'laura@whatit.be', 1234567890, 'laura@whatit.be');
+insert into customer (id, name, email, phone, email_prospect) values (3, 'oodie', 'oodie@whatit.be', 1234567890, 'oodie@whatit.be');
+
+insert into personal_information (age, kids_count, pets_count, siblings_count, income, has_risk, id_customer) values (37, 2, 1, 3, 900000, 1, 2);
+
+-- We need to prefix order with the public schema because order is a keyword
+insert into public.order (id, status, date, quantity, total_amt, id_customer, id_product) values (1, 'filled', '2024-11-19', 1, 2499, 1, 1);
+insert into public.order (id, status, date, quantity, total_amt, id_customer, id_product) values (2, 'filled', '2024-11-20', 2, 498, 1, 3);
+
+insert into warranty (id, expiration_date, price, percentage, id_order) values (1, '2025-11-20', 98, 20, 2);

@@ -85,3 +85,18 @@ predicted with around 90% accuracy.
 cd prediction
 python predict-risk.py
 ```
+
+## API
+
+### /predict
+
+- predict?id=1&age=10&kids_count=2&pets_count=4&siblings_count=1&income=20444
+- predict?id=1&age=35&kids_count=5&pets_count=5&siblings_count=5&income=100000
+- predict?id=2&age=35&kids_count=5&pets_count=5&siblings_count=5&income=100000
+- predict?id=1&age=35&kids_count=5&pets_count=5&siblings_count=5
+
+### /warranty/purchase
+
+- warranty/purchase?id_customer=2&id_order=1
+- warranty/purchase?id_customer=2&id_order=3
+- warranty/purchase?id_customer=4&id_order=3
