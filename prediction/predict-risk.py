@@ -26,6 +26,7 @@ y_prob = model.predict_proba(X_test)
 pred = pd.DataFrame(np.vstack((y_pred, y_test)), index=["Predicted", "Actual"])
 pred.iloc[:, :20]
 
+print(f"Prediction: {y_pred}")
 # Evaluate the model performance
 accuracy = metrics.accuracy_score(y_test, y_pred)
 precision = metrics.precision_score(y_test, y_pred)
