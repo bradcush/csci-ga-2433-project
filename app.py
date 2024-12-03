@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from datetime import datetime
+from minio import Minio
 import os
 import psycopg2
 import pandas as pd
@@ -97,7 +98,7 @@ def predict():
 
 
 @app.route("/api/warranty/purchase")
-def update():
+def purchase():
     """
     Purchase a warranty based on personal
     information and associated risk
@@ -190,6 +191,35 @@ def update():
         )
         conn.commit()
     return jsonify(price=warranty_price, percentage=percentage)
+
+
+@app.route("/api/stackhero/test")
+def stackhero():
+    """
+    Temporary S3 storage integration to make
+    sure things are hooked up properly
+    """
+    client = Minio(
+        # Hardcoding the host value for now
+        # os.environ.get("STACKHERO_MINIO_HOST")
+        endpoint="jqqdw6.stackhero-network.com:443",
+        secure=True,
+        access_key=os.environ.get("STACKHERO_MINIO_ACCESS_KEY"),
+        secret_key=os.environ.get("STACKHERO_MINIO_SECRET_KEY"),
+    )
+    found = client.bucket_exists("test")
+    if not found:
+        client.make_bucket("test")
+    else:
+        return "Bucket already exists"
+    # Upload 'README.md' as object name
+    # 'README.md' to bucket 'test'
+    client.fput_object(
+        "test",
+        "README.md",
+        "/home/bradcush/Documents/repos/csci-ga-2433-project/README.md",
+    )
+    return "Success"
 
 
 if __name__ == "__main__":
