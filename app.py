@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
 from datetime import datetime
 from minio import Minio
 import os
@@ -15,32 +15,75 @@ conn = psycopg2.connect(DATABASE_URL, sslmode="require")
 app = Flask(__name__)
 
 
+# Helper function to easily template html
+# that we want to share across pages
+def html(title, content):
+    """
+    Basic templating
+    """
+    return f"""
+    <!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link href="style.css" rel="stylesheet" />
+            <title>{title}</title>
+        </head>
+        <body>
+            <h1>{title}</h1>
+            {content}
+            <footer>
+                <a href="/" title="Back">Back</a>
+            </footer>
+        </body>
+    </html>
+    """
+
+
+@app.route("/style.css")
+def style():
+    """
+    Only CSS is static
+    """
+    return send_file("style.css")
+
+
 @app.route("/")
 def home():
     """
     Homepage that contains links to all use cases
     which can be run consecutively or separately
     """
-    return f"""
-    <!DOCTYPE html>
-    <html lang="en">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Use cases</title>
-      </head>
-      <body>
-        <h1>Use cases</h1>
+    return html(
+        "Use cases",
+        """
         <ul>
-            <li><a href="add-product" title="Add product">Add product</a></li>
+            <li><a href="enter-product" title="Enter product">Enter product</a></li>
             <li><a href="add-inventory" title="Add inventory">Add inventory</a></li>
             <li><a href="place-order" title="Place order">Place order</a></li>
             <li><a href="purchase-warranty" title="Purchase warranty">Purchase warranty</a></li>
             <li><a href="view-order" title="View order">View order</a></li>
         </ul>
-      </body>
-    </html>
+        """,
+    )
+
+
+@app.route("/enter-product")
+def enter_product():
     """
+    Enter product
+    """
+    return html(
+        "Enter product",
+        """
+        <form method="GET" action="add-product">
+            <input type="input" name="type" placeholder="Enter type" /><br />
+            <input type="input" name="price" placeholder="Enter price" /><br />
+            <input type="submit" value="Submit" />
+        </form>
+        """,
+    )
 
 
 @app.route("/add-product")
@@ -48,23 +91,54 @@ def add_product():
     """
     Add product
     """
-    return f"""
-    <!DOCTYPE html>
-    <html lang="en">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Add product</title>
-      </head>
-      <body>
-        <h1>Add product</h1>
-        <p>Form goes here</p>
-      </body>
-      <footer>
-        <a href="/" title="Go back">Back</a>
-      </footer>
-    </html>
-    """
+    # Actually add the product
+    type = request.args.get("type")
+    price = request.args.get("price")
+    with conn.cursor() as cur:
+        if type and price:
+            cur.execute(
+                """
+                INSERT INTO product (type, price)
+                VALUES (%s, %s)
+                """,
+                (
+                    type,
+                    price,
+                ),
+            )
+            conn.commit()
+        cur.execute(
+            """
+            SELECT id, type, price
+            FROM product
+            """
+        )
+        records = ""
+        for record in cur:
+            records += f"""
+            <tr>
+                <td>{record[0]}</td>
+                <td>{record[1]}</td>
+                <td>{record[2]}</td>
+            </tr>
+            """
+        return html(
+            "Add product",
+            f"""
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>type</th>
+                        <th>price</th>
+                    </tr>
+                </head>
+                <tbody>
+                    {records}
+                </tbody>
+            </table>
+            """,
+        )
 
 
 @app.route("/api/predict")
