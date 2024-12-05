@@ -199,10 +199,12 @@ def stackhero():
     Temporary S3 storage integration to make
     sure things are hooked up properly
     """
+    endpoint = os.environ.get("STACKHERO_MINIO_HOST")
+    if endpoint is None:
+        return "Missing endpoint"
+    endpoint = endpoint + ":443"
     client = Minio(
-        # Hardcoding the host value for now
-        # os.environ.get("STACKHERO_MINIO_HOST")
-        endpoint="jqqdw6.stackhero-network.com:443",
+        endpoint=endpoint,
         secure=True,
         access_key=os.environ.get("STACKHERO_MINIO_ACCESS_KEY"),
         secret_key=os.environ.get("STACKHERO_MINIO_SECRET_KEY"),
