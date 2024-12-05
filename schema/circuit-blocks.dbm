@@ -323,7 +323,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 src-table="public.mailing_list"
 	 dst-table="public.email"
 	 src-required="false" dst-required="false"
-	 table-name="many_mailing_list_has_many_email">
+	 table-name="mailing_list_email">
 	<label ref-type="name-label">
 		<position x="-5.37518" y="-30.159"/>
 	</label>

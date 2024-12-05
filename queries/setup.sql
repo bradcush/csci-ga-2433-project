@@ -28,7 +28,10 @@ insert into customer (id, name, email, phone, email_prospect) values (3, 'oodie'
 insert into personal_information (age, kids_count, pets_count, siblings_count, income, has_risk, id_customer) values (37, 2, 1, 3, 900000, 1, 2);
 
 -- We need to prefix order with the public schema because order is a keyword
-insert into public.order (id, status, date, quantity, total_amt, id_customer, id_product) values (1, 'filled', '2024-11-19', 1, 2499, 1, 1);
-insert into public.order (id, status, date, quantity, total_amt, id_customer, id_product) values (2, 'filled', '2024-11-20', 2, 498, 1, 3);
+insert into public.order (id, status, date, quantity, total_amt, id_customer, id_product) values (1, 'filled', '2024-10-24', 1, 2499, 1, 1);
+insert into public.order (id, status, date, quantity, total_amt, id_customer, id_product) values (2, 'filled', '2024-11-19', 1, 2499, 1, 1);
+insert into public.order (id, status, date, quantity, total_amt, id_customer, id_product) values (3, 'filled', '2024-11-20', 2, 398, 1, 3);
+insert into public.order (id, status, date, quantity, total_amt, id_customer, id_product) values (4, 'filled', '2024-12-02', 1, 499, 1, 2);
+insert into public.order (id, status, date, quantity, total_amt, id_customer, id_product) values (5, 'filled', '2024-12-03', 1, 199, 1, 3);
 
-insert into warranty (id, expiration_date, price, percentage, id_order) values (1, '2025-11-20', 98, 20, 2);
+insert into warranty (id, expiration_date, price, percentage, id_order, date_order) values (1, '2025-12-01', 98, 20, 1, '2024-10-24');

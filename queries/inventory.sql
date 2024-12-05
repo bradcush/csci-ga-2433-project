@@ -1,3 +1,8 @@
+-- List some customer, order, and warranty
+select *
+from customer as c, public.order as o, warranty as w
+where c.id = o.id_customer and o.id = w.id_order;
+
 -- List products and inventory
 select id, type, price, location, quantity
 from product as p, inventory as i
