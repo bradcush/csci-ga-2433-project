@@ -17,7 +17,54 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return datetime.now().strftime("%A, %d %b %Y %l:%M %p")
+    """
+    Homepage that contains links to all use cases
+    which can be run consecutively or separately
+    """
+    return f"""
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Use cases</title>
+      </head>
+      <body>
+        <h1>Use cases</h1>
+        <ul>
+            <li><a href="add-product" title="Add product">Add product</a></li>
+            <li><a href="add-inventory" title="Add inventory">Add inventory</a></li>
+            <li><a href="place-order" title="Place order">Place order</a></li>
+            <li><a href="purchase-warranty" title="Purchase warranty">Purchase warranty</a></li>
+            <li><a href="view-order" title="View order">View order</a></li>
+        </ul>
+      </body>
+    </html>
+    """
+
+
+@app.route("/add-product")
+def add_product():
+    """
+    Add product
+    """
+    return f"""
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Add product</title>
+      </head>
+      <body>
+        <h1>Add product</h1>
+        <p>Form goes here</p>
+      </body>
+      <footer>
+        <a href="/" title="Go back">Back</a>
+      </footer>
+    </html>
+    """
 
 
 @app.route("/api/predict")
@@ -208,6 +255,7 @@ def stackhero():
         secure=True,
         access_key=os.environ.get("STACKHERO_MINIO_ACCESS_KEY"),
         secret_key=os.environ.get("STACKHERO_MINIO_SECRET_KEY"),
+        region="us-east-1",
     )
     found = client.bucket_exists("test")
     if not found:
