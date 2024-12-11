@@ -1,5 +1,13 @@
+body {
+  width: 640px;
+}
+
 table,
 form,
 ul {
   margin-bottom: 20px;
+}
+
+ul ul {
+  margin-bottom: 0;
 }
