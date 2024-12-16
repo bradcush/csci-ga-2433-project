@@ -10,6 +10,9 @@ def enter_inventory():
     return html(
         "Enter inventory",
         """
+        <p>Inventory includes a location, quantity, and valid product id. Any
+        location and quantity is allowed but the `id_product` value must be the
+        valid id of an existing product in the database.</p>
         <form method="GET" action="add-inventory">
             <input type="input" name="location" placeholder="Enter location" /><br />
             <input type="input" name="quantity" placeholder="Enter quantity" /><br />

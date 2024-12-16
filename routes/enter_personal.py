@@ -10,6 +10,11 @@ def enter_personal():
     return html(
         "Enter personal information",
         """
+        <p>Personal information can be entered for a customer which is used to
+        predict the risk of that customer. Upon submission, a risk prediction
+        will be calculated using a pre-trained model and entered with the
+        customer's personal information in the database. A valid id for an
+        existing customer must be entered for the `id_customer` field.</p>
         <form method="GET" action="add-personal">
             <input type="input" name="age" placeholder="Enter age" /><br />
             <input type="input" name="kids_count" placeholder="Enter kids_count" /><br />

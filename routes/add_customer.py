@@ -41,7 +41,7 @@ def add_customer():
                 return GENERIC_ERROR
         cur.execute(
             """
-            SELECT name, email, phone
+            SELECT id, name, email, phone
             FROM customer
             """
         )
@@ -52,6 +52,7 @@ def add_customer():
                 <td>{record[0]}</td>
                 <td>{record[1]}</td>
                 <td>{record[2]}</td>
+                <td>{record[3]}</td>
             </tr>
             """
         return html(
@@ -60,6 +61,7 @@ def add_customer():
             <table border="1">
                 <thead>
                     <tr>
+                        <th>id</th>
                         <th>name</th>
                         <th>email</th>
                         <th>phone</th>

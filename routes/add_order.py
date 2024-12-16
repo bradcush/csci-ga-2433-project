@@ -49,6 +49,9 @@ def add_order():
             # Everything comes in as a string so change it
             total_amt = int(product[0]) * int(quantity)
             date = datetime.now().date()
+            # We should be updating the amount of inventory in
+            # one of the separate inventory tables we have
+            # when an order has the status of filled
             try:
                 cur.execute(
                     """

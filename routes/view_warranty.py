@@ -46,6 +46,11 @@ def view_all():
         return html(
             "View warranty",
             f"""
+            <p>The below table represents joined entries from the `customer`,
+            `order`, `product`, and `warranty` tables for customers that have a
+            warranty for a specific product. Populated entries in this table
+            show that the prior use cases were executed necessary for the
+            creation of a warranty.</p>
             <table border="1">
                 <thead>
                     <tr>

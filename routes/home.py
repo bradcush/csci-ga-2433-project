@@ -19,6 +19,9 @@ def home():
         a form where data can be entered. Upon submission of the form, a
         results page with the added entry in the database is shown. Otherwise,
         if an entry cannot be added, an error is shown.</p>
+        <p><i>Note: If a form is missing data we just show the results. Therefore,
+        you can submit an empty form if you would like to see the contents of a
+        given table without submission.</i></p>
         <ul>
             <li> Employee
                 <ul>
