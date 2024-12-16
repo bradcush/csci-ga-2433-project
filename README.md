@@ -51,6 +51,18 @@ change the database name to `bradcush` used locally by Heroku.
 sudo -u postgres psql
 ```
 
+I've been manually recreating the database locally to test. The steps I've been
+using are to drop the existing database, create a new one, and then execute the
+schema and setup files.
+
+``` sh
+dropdb 'bradcush'
+createdb 'bradcush'
+# Latest schema and setup files
+psql -d bradcush -a -f schema/circuit-blocks-3.sql
+psql -d bradcush -a -f queries/setup.sql
+```
+
 ## Schemas
 
 - `schema/circuit-blocks.png`
@@ -70,7 +82,7 @@ programmatically generated data representative of the real world.
 
 ``` sh
 cd prediction
-python train-model.py
+python train_model.py
 ```
 
 ### Predicting
@@ -83,5 +95,22 @@ predicted with around 90% accuracy.
 
 ``` sh
 cd prediction
-python predict-risk.py
+python predict_risk.py
+```
+
+## Analytics
+
+There are two scripts which make it possible to interact with Stackhero S3
+buckets for analytics purposes. `analytics/upload_risk.py` uploads external
+data saved locally by replacing and archiving what's currently there.
+`analytics/train_latest.py` downloads the latest external data, trains a model
+locally, and then uploads the trained model to S3 while archiving the old
+model it's replacing. These scripts are intended to be run locally for now to
+make it easier to update analytics. They should be integrated into a running
+service in the future to run automatically at some interval.
+
+``` sh
+cd analytics
+pytong upload_risk.py
+pytong train_latest.py
 ```
