@@ -1,0 +1,737 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+ Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="1.2.0-alpha1" use-changelog="false" max-obj-count="22"
+	 last-position="0,-73" last-zoom="0.5" scene-rect="-588,-147,2998.49,1971.52"
+	 default-schema="public" default-owner="postgres"
+	 layers="Default layer"
+	 active-layers="0"
+	 layer-name-colors="#000000"
+	 layer-rect-colors="#b4b4b4"
+	 show-layer-names="false" show-layer-rects="false">
+<database name="circuit-blocks" is-template="false" allow-conns="true">
+</database>
+
+<schema name="public" layers="0" fill-color="#e1e1e1" name-color="#000000" sql-disabled="true">
+</schema>
+
+<schema name="marketing" layers="0" rect-visible="true" fill-color="#e1e1e1" name-color="#31363b">
+	<role name="postgres"/>
+</schema>
+
+<schema name="inventory" layers="0" rect-visible="true" fill-color="#e1e1e1" name-color="#31363b">
+	<role name="postgres"/>
+</schema>
+
+<schema name="payroll" layers="0" rect-visible="true" fill-color="#e1e1e1" name-color="#31363b">
+	<role name="postgres"/>
+</schema>
+
+<schema name="warranties" layers="0" rect-visible="true" fill-color="#e1e1e1" name-color="#31363b">
+	<role name="postgres"/>
+</schema>
+
+<schema name="sales" layers="0" rect-visible="true" fill-color="#e1e1e1" name-color="#31363b">
+	<role name="postgres"/>
+</schema>
+
+<schema name="engineering" layers="0" rect-visible="true" fill-color="#e1e1e1" name-color="#31363b">
+	<role name="postgres"/>
+</schema>
+
+<schema name="design" layers="0" rect-visible="true" fill-color="#e1e1e1" name-color="#31363b">
+	<role name="postgres"/>
+</schema>
+
+<table name="prospect" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="marketing"/>
+	<role name="postgres"/>
+	<position x="-220" y="-60"/>
+	<column name="name">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="email" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<constraint name="prospect_pk" type="pk-constr" table="marketing.prospect">
+		<columns names="email" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="order" layers="0" collapse-mode="2" max-obj-count="8" z-value="0">
+	<schema name="sales"/>
+	<role name="postgres"/>
+	<position x="1020" y="220"/>
+	<column name="id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="status">
+		<type name="varchar" length="10"/>
+	</column>
+	<column name="date">
+		<type name="date" length="0"/>
+	</column>
+	<column name="quantity">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="total_amt">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="order_pk" type="pk-constr" table="sales.&quot;order&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_customer" index="5"/>
+		<object name="id_product" index="6"/>
+	</customidxs>
+	<customidxs object-type="constraint">
+		<object name="customer_fk" index="1"/>
+		<object name="product_fk" index="2"/>
+	</customidxs></table>
+
+<table name="customer" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
+	<schema name="sales"/>
+	<role name="postgres"/>
+	<position x="380" y="220"/>
+	<column name="id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="name">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="email">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="phone">
+		<type name="numeric" length="10"/>
+	</column>
+	<constraint name="customer_pk" type="pk-constr" table="sales.customer">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="email_prospect" index="4"/>
+	</customidxs>
+	<customidxs object-type="constraint">
+		<object name="customer_uq" index="2"/>
+		<object name="prospect_fk" index="1"/>
+	</customidxs></table>
+
+<table name="product" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="inventory"/>
+	<role name="postgres"/>
+	<position x="1400" y="580"/>
+	<column name="id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="type">
+		<type name="varchar" length="10"/>
+	</column>
+	<column name="price">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="product_pk" type="pk-constr" table="inventory.product">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="warranty" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
+	<schema name="warranties"/>
+	<role name="postgres"/>
+	<position x="1680" y="120"/>
+	<column name="id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="expiration_date">
+		<type name="date" length="0"/>
+	</column>
+	<column name="price">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="percentage">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="warranty_pk" type="pk-constr" table="warranties.warranty">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_order" index="4"/>
+	</customidxs>
+	<customidxs object-type="constraint">
+		<object name="order_fk" index="1"/>
+		<object name="warranty_uq" index="2"/>
+	</customidxs></table>
+
+<table name="credit_card" layers="0" collapse-mode="2" max-obj-count="9" z-value="0">
+	<schema name="sales"/>
+	<role name="postgres"/>
+	<position x="80" y="640"/>
+	<column name="fname">
+		<type name="varchar" length="20"/>
+	</column>
+	<column name="minit">
+		<type name="varchar" length="10"/>
+	</column>
+	<column name="lname">
+		<type name="varchar" length="10"/>
+	</column>
+	<column name="number" not-null="true">
+		<type name="numeric" length="16"/>
+	</column>
+	<column name="expiration_date">
+		<type name="date" length="0"/>
+	</column>
+	<column name="security_code">
+		<type name="numeric" length="3"/>
+	</column>
+	<column name="zip_code">
+		<type name="numeric" length="5"/>
+	</column>
+	<constraint name="credit_card_pk" type="pk-constr" table="sales.credit_card">
+		<columns names="number" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_customer" index="7"/>
+	</customidxs>
+	<customidxs object-type="constraint">
+		<object name="credit_card_uq" index="2"/>
+		<object name="customer_fk" index="1"/>
+	</customidxs></table>
+
+<table name="backorder" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
+	<schema name="inventory"/>
+	<role name="postgres"/>
+	<position x="1980" y="1000"/>
+	<column name="id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="manufacturer">
+		<type name="varchar" length="20"/>
+	</column>
+	<column name="quantity">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="cost">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="status">
+		<type name="varchar" length="10"/>
+	</column>
+	<constraint name="backorder_pk" type="pk-constr" table="inventory.backorder">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="inventory" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="inventory"/>
+	<role name="postgres"/>
+	<position x="1960" y="400"/>
+	<column name="location" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<column name="quantity">
+		<type name="integer" length="0"/>
+	</column>
+
+	<customidxs object-type="column">
+		<object name="id_product" index="2"/>
+	</customidxs>
+	<customidxs object-type="constraint">
+		<object name="inventory_pk" index="0"/>
+		<object name="product_fk" index="1"/>
+	</customidxs></table>
+
+<relationship name="product_stored_by_inventory" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#11af7f"
+	 src-table="inventory.product"
+	 dst-table="inventory.inventory"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="-11.0265" y="-27.7365"/>
+	</label>
+	<constraint name="inventory_pk" type="pk-constr" table="inventory.inventory">
+		<columns names="location" ref-type="src-columns"/>
+	</constraint>
+	<special-pk-cols indexes="0"/>
+</relationship>
+
+<table name="personal_information" layers="0" collapse-mode="2" max-obj-count="8" z-value="0">
+	<schema name="sales"/>
+	<role name="postgres"/>
+	<position x="-400" y="360"/>
+	<column name="age">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="kids_count">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="pets_count">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="siblings_count">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="income">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="has_risk">
+		<type name="integer" length="0"/>
+	</column>
+
+	<customidxs object-type="column">
+		<object name="id_customer" index="6"/>
+	</customidxs>
+	<customidxs object-type="constraint">
+		<object name="customer_fk" index="0"/>
+		<object name="personal_information_pk" index="2"/>
+		<object name="personal_information_uq" index="1"/>
+	</customidxs></table>
+
+<table name="mailing_list" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
+	<schema name="marketing"/>
+	<role name="postgres"/>
+	<position x="520" y="-60"/>
+	<column name="type" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<column name="last_sent_date">
+		<type name="date" length="0"/>
+	</column>
+	<column name="total_emails">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="is_subscribed">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="mailing_list_pk" type="pk-constr" table="marketing.mailing_list">
+		<columns names="type" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="email_prospect" index="4"/>
+	</customidxs>
+	<customidxs object-type="constraint">
+		<object name="prospect_fk" index="1"/>
+	</customidxs></table>
+
+<table name="member" layers="0" collapse-mode="1" max-obj-count="4" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="540" y="660"/>
+	<column name="join_date">
+		<type name="date" length="0"/>
+	</column>
+	<column name="expiration_date">
+		<type name="date" length="0"/>
+	</column>
+	<column name="status_tier">
+		<type name="varchar" length="10"/>
+	</column>
+
+	<customidxs object-type="column">
+		<object name="id_customer" index="3"/>
+	</customidxs>
+	<customidxs object-type="constraint">
+		<object name="customer_fk" index="0"/>
+		<object name="member_uq" index="1"/>
+	</customidxs></table>
+
+<table name="email" layers="0" collapse-mode="2" max-obj-count="4" z-value="0">
+	<schema name="marketing"/>
+	<role name="postgres"/>
+	<position x="1160" y="-40"/>
+	<column name="title">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="description">
+		<type name="varchar" length="200"/>
+	</column>
+	<column name="markup_html">
+		<type name="varchar" length="1000"/>
+	</column>
+	<column name="id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<constraint name="email_pk" type="pk-constr" table="marketing.email">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="mailing_list_sends_email" type="relnn" layers="0"
+	 src-col-pattern="{sc}_{st}" dst-col-pattern="{sc}_{dt}"
+	 pk-pattern="{gt}_pk" uq-pattern="{gt}_uq"
+	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_fk"
+	 pk-col-pattern="id"
+	 custom-color="#fdf432"
+	 src-table="marketing.mailing_list"
+	 dst-table="marketing.email"
+	 src-required="false" dst-required="false"
+	 table-name="mailing_list_email">
+	<label ref-type="name-label">
+		<position x="-5.37518" y="-30.159"/>
+	</label>
+</relationship>
+
+<table name="employee" layers="0" collapse-mode="2" max-obj-count="1" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="940" y="1200"/>
+	<column name="id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<constraint name="employee_pk" type="pk-constr" table="public.employee">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="designer" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
+	<schema name="design"/>
+	<role name="postgres"/>
+	<position x="280" y="1000"/>
+	<column name="name">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="salary">
+		<type name="integer" length="0"/>
+	</column>
+
+	<customidxs object-type="column">
+		<object name="id_department" index="3"/>
+		<object name="id_employee" index="4"/>
+		<object name="id_product" index="1"/>
+	</customidxs>
+	<customidxs object-type="constraint">
+		<object name="department_fk" index="1"/>
+		<object name="designer_pk" index="4"/>
+		<object name="designer_uq" index="3"/>
+		<object name="employee_fk" index="2"/>
+		<object name="product_fk" index="0"/>
+	</customidxs></table>
+
+<relationship name="product_designed_by_designer" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#05bc1e"
+	 src-table="inventory.product"
+	 dst-table="design.designer"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="-7.28925" y="-40.153"/>
+	</label>
+</relationship>
+
+<table name="department" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="-300" y="1200"/>
+	<column name="id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="name">
+		<type name="varchar" length="50"/>
+	</column>
+	<constraint name="department_pk" type="pk-constr" table="public.department">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="programmer" layers="0" collapse-mode="2" max-obj-count="4" z-value="0">
+	<schema name="engineering"/>
+	<role name="postgres"/>
+	<position x="280" y="1340"/>
+	<column name="name">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="salary">
+		<type name="integer" length="0"/>
+	</column>
+
+	<customidxs object-type="column">
+		<object name="id_department" index="2"/>
+		<object name="id_employee" index="3"/>
+	</customidxs>
+	<customidxs object-type="constraint">
+		<object name="department_fk" index="0"/>
+		<object name="employee_fk" index="1"/>
+		<object name="programmer_pk" index="3"/>
+		<object name="programmer_uq" index="2"/>
+	</customidxs></table>
+
+<relationship name="department_assigned_designer" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#2ae8bb"
+	 src-table="public.department"
+	 dst-table="design.designer"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="19.45" y="-26.3542"/>
+	</label>
+</relationship>
+
+<table name="payroll" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="payroll"/>
+	<role name="postgres"/>
+	<position x="940" y="1420"/>
+	<column name="id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="amount">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="payroll_pk" type="pk-constr" table="payroll.payroll">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_employee" index="2"/>
+	</customidxs>
+	<customidxs object-type="constraint">
+		<object name="employee_fk" index="1"/>
+		<object name="payroll_uq" index="2"/>
+	</customidxs></table>
+
+<table name="files" layers="0" collapse-mode="2" max-obj-count="4" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="260" y="1640"/>
+	<column name="id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="name">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="content">
+		<type name="varchar" length="10000"/>
+	</column>
+	<constraint name="files_pk" type="pk-constr" table="public.files">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="prospect_signs_up_for_mailing_list" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#31ce4b"
+	 src-table="marketing.prospect"
+	 dst-table="marketing.mailing_list"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="-2.85175" y="-24.965"/>
+	</label>
+</relationship>
+
+<relationship name="product_sold_by_order" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#e07f2b"
+	 src-table="inventory.product"
+	 dst-table="sales.&quot;order&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="CUSTOMER_places_ORDER" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#71c748"
+	 src-table="sales.customer"
+	 dst-table="sales.&quot;order&quot;"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="-1.42987" y="-29.153"/>
+	</label>
+</relationship>
+
+<table name="inventory_backorder" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="inventory"/>
+	<role name="postgres"/>
+	<position x="1760" y="700"/>
+
+	<customidxs object-type="column">
+		<object name="id_backorder" index="2"/>
+		<object name="id_product_inventory" index="1"/>
+		<object name="location_inventory" index="0"/>
+	</customidxs>
+	<customidxs object-type="constraint">
+		<object name="backorder_fk" index="2"/>
+		<object name="inventory_backorder_pk" index="1"/>
+		<object name="inventory_fk" index="0"/>
+	</customidxs></table>
+
+<relationship name="inventory_has_many_inventory_backorder" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#eb139c"
+	 src-table="inventory.inventory"
+	 dst-table="inventory.inventory_backorder"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="5.24317" y="-30.153"/>
+	</label>
+	<special-pk-cols indexes="0,1"/>
+</relationship>
+
+<relationship name="backorder_has_many_inventory_backorder" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#f58cfe"
+	 src-table="inventory.backorder"
+	 dst-table="inventory.inventory_backorder"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="12.2679" y="-30.353"/>
+	</label>
+	<constraint name="inventory_backorder_pk" type="pk-constr" alias="inventory_backorder_pk" protected="true" table="inventory.inventory_backorder">
+		</constraint>
+	<special-pk-cols indexes="0"/>
+</relationship>
+
+<relationship name="department_assigned_programmer" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#0732b6"
+	 src-table="public.department"
+	 dst-table="engineering.programmer"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="6.95004" y="-33.9756"/>
+	</label>
+</relationship>
+
+<relationship name="designer_is_a_employee" type="rel11" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#d7b9ce"
+	 src-table="public.employee"
+	 dst-table="design.designer"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="15.8658" y="-25.8112"/>
+	</label>
+	<special-pk-cols indexes="0"/>
+</relationship>
+
+<relationship name="programmer_is_a_employee" type="rel11" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#213c9a"
+	 src-table="public.employee"
+	 dst-table="engineering.programmer"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+	<special-pk-cols indexes="0"/>
+</relationship>
+
+<relationship name="programmer_uploads_files" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#5d0b10"
+	 src-table="engineering.programmer"
+	 dst-table="public.files"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="6.92082" y="-29.753"/>
+	</label>
+</relationship>
+
+<relationship name="payroll_pays_employee" type="rel11" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#003a6e"
+	 src-table="public.employee"
+	 dst-table="payroll.payroll"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="0.929473" y="-40.953"/>
+	</label>
+</relationship>
+
+<relationship name="credit_card_stored_for_customer" type="rel11" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#16add6"
+	 src-table="sales.customer"
+	 dst-table="sales.credit_card"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="-10.3012" y="-19.153"/>
+	</label>
+</relationship>
+
+<relationship name="personal_information_given_by_customer" type="rel11" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#46746a"
+	 src-table="sales.customer"
+	 dst-table="sales.personal_information"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="-6.62809" y="-24.1121"/>
+	</label>
+	<special-pk-cols indexes="0"/>
+</relationship>
+
+<relationship name="member_is_a_customer" type="rel11" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#881a89"
+	 src-table="sales.customer"
+	 dst-table="public.member"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="27.9393" y="-20.353"/>
+	</label>
+	<special-pk-cols indexes="0"/>
+</relationship>
+
+<relationship name="warranty_registered_for_order" type="rel11" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#f3fa9a"
+	 src-table="sales.&quot;order&quot;"
+	 dst-table="warranties.warranty"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="12.3815" y="-24.8492"/>
+	</label>
+</relationship>
+
+<relationship name="customer_is_a_prospect" type="rel11" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#68af46"
+	 src-table="marketing.prospect"
+	 dst-table="sales.customer"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="33.7346" y="-20.753"/>
+	</label>
+</relationship>
+
+</dbmodel>
