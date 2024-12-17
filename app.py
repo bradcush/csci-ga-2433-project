@@ -32,6 +32,7 @@ import routes.add_order
 import routes.purchase_warranty
 import routes.add_warranty
 import routes.view_warranty
+import routes.stackhero
 
 
 if __name__ == "__main__":

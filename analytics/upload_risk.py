@@ -1,21 +1,11 @@
 from minio import Minio
 from minio.commonconfig import CopySource
-import hashlib
-import time
+from helpers import hash_time
 import shutil
 import os
 
 REPOS_DIRECTORY = "/home/bradcush/Documents/repos"
 ANALYTICS_DIRECTORY = f"{REPOS_DIRECTORY}/csci-ga-2433-project/analytics"
-
-
-# Create time-based hash for now but
-# better could be to hash the contents
-def hash_time():
-    now = str(time.time()).encode()
-    m = hashlib.sha1()
-    m.update(now)
-    return m.hexdigest()
 
 
 # Archive the current file by moving it to archive and

@@ -1,10 +1,9 @@
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from minio.commonconfig import CopySource
+from helpers import hash_time
 from minio import Minio
 import pandas as pd
-import hashlib
-import time
 import pickle
 import os
 
@@ -13,15 +12,6 @@ REPOS_DIRECTORY = "/home/bradcush/Documents/repos"
 ANALYTICS_DIRECTORY = f"{REPOS_DIRECTORY}/csci-ga-2433-project/analytics"
 TEMP_CSV_FILEPATH = f"{ANALYTICS_DIRECTORY}/current.csv"
 TEMP_PKL_FILEPATH = f"{ANALYTICS_DIRECTORY}/current.pkl"
-
-
-# Create time-based hash for now but
-# better could be to hash the contents
-def hash_time():
-    now = str(time.time()).encode()
-    m = hashlib.sha1()
-    m.update(now)
-    return m.hexdigest()
 
 
 # Download the latest external data
