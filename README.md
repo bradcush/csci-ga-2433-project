@@ -114,3 +114,7 @@ cd analytics
 pytong upload_risk.py
 pytong train_latest.py
 ```
+
+*Note: Environment variables are required to be set to run these scripts due to
+the permissions requried for Stackhero S3. Set your local environment variables
+based on what's specified in the `.env` file.*
