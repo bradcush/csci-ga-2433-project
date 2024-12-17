@@ -1,4 +1,5 @@
 from app import app
+from minio import Minio
 from flask import request
 from routes.helpers import html
 import psycopg2
@@ -9,6 +10,8 @@ import os
 DATABASE_URL = os.environ["DATABASE_URL"]
 
 conn = psycopg2.connect(DATABASE_URL, sslmode="require")
+
+PKL_FILEPATH = "routes/current.pkl"
 
 GENERIC_ERROR = "An error ocurred"
 
@@ -45,8 +48,27 @@ def add_personal():
             customer = cur.fetchone()
             if customer is None:
                 return "id_customer doesn't exist"
-            # Load the exsting model locally for now
-            with open("prediction/model.pkl", "rb") as f:
+            # Make sure to set API keys for environment
+            # if you want to run this script locally
+            endpoint = os.environ.get("STACKHERO_MINIO_HOST")
+            if endpoint is None:
+                return "Missing endpoint"
+            endpoint = endpoint + ":443"
+            client = Minio(
+                endpoint=endpoint,
+                secure=True,
+                access_key=os.environ.get("STACKHERO_MINIO_ACCESS_KEY"),
+                secret_key=os.environ.get("STACKHERO_MINIO_SECRET_KEY"),
+            )
+            client.fget_object(
+                "analytics",
+                # Current folder always the latest
+                "models/risk/current.pkl",
+                PKL_FILEPATH,
+            )
+            # For now we get the latest model everytime but ideally
+            # we should only get it after some time has elapsed
+            with open(PKL_FILEPATH, "rb") as f:
                 model = pickle.load(f)
             # Query should be a data frame
             query = pd.DataFrame(
