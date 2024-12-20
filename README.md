@@ -2,6 +2,14 @@
 
 Database Systems
 
+## Requirements
+
+- Python 3
+- PostgreSQL (local)
+- Heroku (Remote)
+  - Heroku PostgreSQL
+  - Stackhero S3
+
 ## Setup
 
 ``` sh
@@ -10,6 +18,12 @@ cd ~/venvs # Store in venvs
 python -m venv csci-ga-2433-project
 source ~/venvs/csci-ga-2433-project/bin/activate
 deactivate # Deactivate from within environment
+```
+
+Install dependencies:
+
+``` sh
+pip install -r requirements.txt
 ```
 
 ## Heroku
@@ -65,8 +79,10 @@ psql -d bradcush -a -f queries/setup.sql
 
 ## Schemas
 
-- `schema/circuit-blocks.png`
-- `schema/circuit-blocks.sql`
+Latest conceptual and logical schemas:
+
+- `schema/circuit-blocks-3.sql`
+- `schema/circuit-blocks-4.png`
 
 ## Insights
 
@@ -118,3 +134,9 @@ pytong train_latest.py
 *Note: Environment variables are required to be set to run these scripts due to
 the permissions requried for Stackhero S3. Set your local environment variables
 based on what's specified in the `.env` file.*
+
+## Routes
+
+All use cases are organized by route in the `routes` folder and imported into
+the top-level `app.py` file which is the entry point for the server-side web
+application powered by Heroku and referenced in the `Procfile`.
